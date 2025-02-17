@@ -25,7 +25,7 @@ septa_bus_stop_surrounding_population as (
 )
 
 select
-    stops.stop_name,
+    trim(both ' ' from stops.stop_name) as stop_name,
     pop.estimated_pop_800m,
     stops.geog
 from septa_bus_stop_surrounding_population as pop
