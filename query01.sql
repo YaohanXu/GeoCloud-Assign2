@@ -25,9 +25,9 @@ septa_bus_stop_surrounding_population as (
 )
 
 select
-    trim(both ' ' from stops.stop_name) as stop_name,
     pop.estimated_pop_800m,
-    stops.geog
+    stops.geog,
+    trim(both ' ' from stops.stop_name) as stop_name
 from septa_bus_stop_surrounding_population as pop
 inner join septa.bus_stops as stops using (stop_id)
 order by pop.estimated_pop_800m desc
