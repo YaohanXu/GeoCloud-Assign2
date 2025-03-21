@@ -23,12 +23,11 @@ septa_bus_stop_surrounding_population as (
     inner join census.population_2020 as pop using (geoid)
     group by stops.stop_id
 )
-
 select
+    trim(both ' ' from stops.stop_name) as stop_name,
     pop.estimated_pop_800m,
-    stops.geog,
-    trim(both ' ' from stops.stop_name) as stop_name
+    stops.geog
 from septa_bus_stop_surrounding_population as pop
 inner join septa.bus_stops as stops using (stop_id)
 order by pop.estimated_pop_800m desc
-limit 8
+limit 8;
