@@ -244,7 +244,11 @@ There are several datasets that are prescribed for you to use in this part. Belo
     )
     ```
 
-    **Discussion:**
+    **Discussion:** I defined Penn's main campus using both phl.neighborhoods and phl.pwd_parcels.
+    1. I first selected parcels from phl.pwd_parcels whose ownership records contain both "univ" and "penn" (case-insensitive).
+    2. From the selected parcels, I retained only those intersecting the University City neighborhood in phl.neighborhoods, considering them as part of Penn's main campus.
+    3. I constructed a convex hull from the selected parcels to approximate Penn's campus boundary.
+    4. For each census block group, I calculated the percentage of its area that falls within the defined campus boundary. Since the convex hull is a rough approximation, any census block group with at least 90% of its area inside the boundary is considered fully contained in Penn's main campus.
 
 9.  With a query involving PWD parcels and census block groups, find the `geo_id` of the block group that contains Meyerson Hall. `ST_MakePoint()` and functions like that are not allowed.
 
