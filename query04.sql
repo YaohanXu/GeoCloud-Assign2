@@ -21,7 +21,7 @@ trip_length as (
     select
         ts.shape_id,
         ts.shape_geog,
-        round(st_length(ts.shape_geog)::numeric, 2) as shape_length
+        round(st_length(ts.shape_geog)::numeric, 0) as shape_length
     from trip_shape as ts
 ),
 
