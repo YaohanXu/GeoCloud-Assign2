@@ -3,7 +3,9 @@
   find the two routes with the longest trips.
 */
 
-with trip_shape as (
+with
+
+trip_shape as (
     select
         bs.shape_id,
         st_makeline(array_agg(
@@ -41,8 +43,8 @@ ranked_trip as (
 
 final_trip as (
     select *
-    from ranked_trip as rt
-    where rt.rn = 1
+    from ranked_trip
+    where rn = 1
 )
 
 select
