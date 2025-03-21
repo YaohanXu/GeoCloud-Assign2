@@ -37,7 +37,7 @@ rail_bus_stop_500 as (
         rs.stop_id as rail_stop_id,
         count(bs.stop_id) as bus_stop_count
     from septa.rail_stops as rs
-    inner join septa.bus_stops as bs
+    left join septa.bus_stops as bs
         on st_dwithin(rs.geog, bs.geog, 500)
     group by rs.stop_id
 )
@@ -48,7 +48,7 @@ select
     rs.stop_name,
     rs.stop_lon,
     rs.stop_lat,
-    'The rail stop is located in ' || rbg.blockgroup_name || ', the nearest bus stop is ' || rnb.nearest_bus_distance || ' meters away' || ', with ' || coalesce(rbs.bus_stop_count, 0) || ' bus stops within 500m.' as stop_desc
+    'The rail stop is located in ' || rbg.blockgroup_name || ', the nearest bus stop is ' || coalesce(rnb.nearest_bus_distance, 0.00) || ' meters away' || ', with ' || coalesce(rbs.bus_stop_count, 0) || ' bus stops within 500m.' as stop_desc
 from septa.rail_stops as rs
 left join rail_block_group as rbg
     on rs.stop_id = rbg.rail_stop_id
