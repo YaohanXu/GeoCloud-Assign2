@@ -216,8 +216,8 @@ There are several datasets that are prescribed for you to use in this part. Belo
 
     **Description:** The accessibility metric I chose is the density of wheelchair-accessible bus stops for each neighborhood in Philadelphia. This metric is calculated by dividing the total number of wheelchair-accessible bus stops in a neighborhood by its total area in square kilometers. The specific implementation steps are as follows:
     1. I first extracted the stop_id and wheelchair_boarding columns from the septa.bus_stops table to obtain the wheelchair accessibility information for parent stations.
-    2. According to the GTFS documentation, if a bus stop's wheelchair_boarding value is 0 or NULL (indicating "No accessibility information for the stop") but it has a parent_station (parent_station IS NOT NULL), it inherits its wheelchair accessibility status from the parent station.
-    3. Based on this rule, bus stops with a parent_station inherit their wheelchair accessibility information from the dataset extracted in the first step.
+    2. According to the GTFS documentation, if a bus stop's wheelchair_boarding value is 0 or NULL (indicating "No accessibility information for the stop") but it has a parent station (parent_station IS NOT NULL), it inherits its wheelchair accessibility status from the parent station.
+    3. Based on this rule, bus stops with a parent station inherit their wheelchair accessibility information from the dataset extracted in the first step.
     4. I then calculated the number of wheelchair-accessible bus stops (wheelchair_boarding = 1) and non-accessible bus stops (wheelchair_boarding = 2) within each neighborhood, as well as the total area of each neighborhood (converted into square kilometers). Stops that did not provide accessibility information (wheelchair_boarding = 0 or empty) were excluded from this calculation.
     5. Finally, I calculated and ranked the density of wheelchair-accessible bus stops per square kilometer for each neighborhood.
 
