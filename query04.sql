@@ -4,7 +4,7 @@
 */
 
 with
-
+-- Create shape geometry for each trip shape
 trip_shape as (
     select
         bs.shape_id,
@@ -25,7 +25,7 @@ trip_length as (
     from trip_shape as ts
 ),
 
--- Identify the longest trip for each route_id
+-- Identify the rank of trip lengths for each route
 ranked_trip as (
     select
         bt.route_id,
@@ -41,12 +41,14 @@ ranked_trip as (
         on bt.shape_id = tl.shape_id
 ),
 
+-- Select the longest trip for each route
 final_trip as (
     select *
     from ranked_trip
     where rn = 1
 )
 
+-- Find the two routes with the longest trips
 select
     br.route_short_name,
     ft.trip_headsign,
